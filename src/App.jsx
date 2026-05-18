@@ -2269,17 +2269,17 @@ function HoverStyles() {
 // LOADING SCREEN — taruh di atas App() di App.jsx
 // ============================================================
  
-function LoadingScreen({ onDone }) {
+function LoadingScreen({ theme, onDone }) {
   const [progress, setProgress] = useState(0)
   const [phase, setPhase] = useState(0) // 0=loading, 1=complete, 2=exit
  
   useEffect(() => {
     // Progress bar simulation
     const steps = [
-      { target: 30, duration: 400 },
-      { target: 65, duration: 500 },
-      { target: 85, duration: 400 },
-      { target: 100, duration: 300 },
+      { target: 30, duration: 900 },
+      { target: 65, duration: 1200 },
+      { target: 85, duration: 900 },
+      { target: 100, duration: 700 },
     ]
  
     let current = 0
@@ -2534,13 +2534,19 @@ function LoadingScreen({ onDone }) {
         style={{
           position: 'absolute',
           bottom: '2rem',
-          fontSize: '0.7rem',
-          color: '#334155',
+          fontSize: '0.72rem',
+
+          color:
+            theme === 'dark'
+              ? '#64748b'
+              : '#475569',
+
           fontFamily: 'monospace',
           letterSpacing: '0.06em',
+          textAlign: 'center'
         }}
       >
-        {'<portfolio /> v1.0'}
+        {`© ${new Date().getFullYear()} Reksa — Crafted with passion`}
       </motion.p>
     </motion.div>
   )
@@ -2591,7 +2597,7 @@ export default function App() {
  
       {/* ← Loading screen — muncul duluan, hilang setelah selesai */}
       <AnimatePresence>
-        {loading && <LoadingScreen onDone={() => setLoading(false)} />}
+        {loading && <LoadingScreen theme={theme} onDone={() => setLoading(false)} />}
       </AnimatePresence>
  
       <Cursor />
